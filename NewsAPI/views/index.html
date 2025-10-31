@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neeeeeeeeeeeeeeeews</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<body>
+    <nav>
+        NewsAPI - Poking at News APIs for news.
+    </nav>
+    </header>
+    <div id="guide-container">
+        <h1>Welcome to the News Feed</h1>
+        <h1>Here is how to work the page</h1>
+        <p>
+            Website uses NewsAPI to fetch news articles.
+            You can search for news by a query in search box.
+            Searches are made for the past week (7 days).
+            If no query is provided, top headlines are fetched.
+        </p>
+        <form id="searchForm">
+            <label for="queryString">Search:</label><br>
+            <input type="text" id="queryString" name="queryString" value=""><br><br>
+            <input type="submit" value="Search!">
+        </form>
+    </div>
+    <div>
+        <div id="news-container">
+            <!-- News articles will be dynamically inserted here -->
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 @NKRisu on GitHub.</p>
+    </footer>
+    <div id="banner"></div>
+    <script src="/static/apiCalls.js"></script>
+    <script src="/static/render.js"></script>
+    <script src="/static/search.js"></script>
+</body>
+</html>
