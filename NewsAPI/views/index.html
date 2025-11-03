@@ -20,9 +20,18 @@
             Searches are made for the past week (7 days).
             If no query is provided, top headlines are fetched.
         </p>
+        <p>
+            You can also search top headlines from different countries by using country code in search box.
+            Such as "us", for United States.
+        </p>
         <form id="searchForm">
             <label for="queryString">Search:</label><br>
             <input type="text" id="queryString" name="queryString" value=""><br><br>
+            <input type="submit" value="Search!">
+        </form>
+        <form id="localForm">
+            <label for="localString">Search in country:</label><br>
+            <input type="text" id="localString" name="localString" value=""><br><br>
             <input type="submit" value="Search!">
         </form>
     </div>
