@@ -12,6 +12,8 @@ This application displays news feed from various news agencies/services/platform
 - Uses public data from NewsAPI
 - Provides a clean and user-friendly interface on the website.
 - Short instructions on the website on how the site works.
+- query with countrycodes for local news (due to NewsAPI's lack of country code identifiers in their database, only "us" or "US" will give any results, response status will be 200 OK for ny query that uses ISO standard country codes, but result count will be 0.
+- Cleaned any remaining log statements and now only one error persists due to null reference after removing placeholder.png reference for articles with no image. Fixed later but does not seem to be an issue as all articles do have an image... hence reference was removed...
 
 ---
 
@@ -48,6 +50,7 @@ This application displays news feed from various news agencies/services/platform
 2. **View the trending news initially**:
 
    - The page will display the trending news for you in three columns. (or single column if your browser window is narrow)
+   - Search boxes for generic search and one for country codes.
 
 3. **Any news with "Read more"**:
    - Click on the underlined read more to view additional details
@@ -111,7 +114,7 @@ NewsFeedApp/
 ### NewsAPI
 
 - **Top headlines**:
-  - Endpoint: `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}`
+  - Endpoint: `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${apiKey}`
 - **Everything**: Provides what ever news that match user's query parameters.
   - Endpoint: `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&from=${weekAgo}&to=${today}&sortBy=${sortBy}&apiKey=${apiKey}`
 
@@ -123,12 +126,12 @@ NewsFeedApp/
 
 - **Web page may be slow**: When loading in, API response times on developer API-key is slow and only updates every 24 hours.
 - **Error for missing file in console**: Clean up on this issue is coming, related to code logic not having a fallback at this point for missing image file.
+- **No articles for any other language / country**: only language "en"/"EN" and countrycode "us"/"US" give results, any other query parameter gives result length 0. I cannot fix this.
 
 ### Future Improvements
 
-- **Search improvements**: Implementing language, country, popularity ascending/descending, time frame and other search query params. Possibly restricting searched news articles to smaller number, current limit is API's max. (i. e. no limit...)
+- **Search improvements**: Implementing popularity ascending/descending, time frame and other search query params. Possibly restricting searched news articles to smaller number, current limit is API's max. (i. e. no limit...)
 - **Caching**: Caching some information on page so not everything needs to be fetched.
-- **Removing all the logging**: Removing logs (which i may or may not have done before pushing this to Git...)
 
 ---
 
