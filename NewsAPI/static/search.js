@@ -1,5 +1,8 @@
-
-// uses topHeadLinesUrl() at first, when search parameter is given, uses everythingUrl()
+/*
+    uses topHeadLinesUrl() at first with placeholder
+    uses everythingUrl() if search word is given
+    uses topHeadLinesUrl() if country code is given
+*/
 
 async function handleSearch(e) {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
@@ -8,17 +11,21 @@ async function handleSearch(e) {
     container.innerHTML = "<p>Loading...</p>";
 
     try {
-        const inputEl = document.getElementById("queryString");
-        const query = inputEl ? inputEl.value.trim() : "";
+        const inputQ = document.getElementById("queryString");
+        const query = inputQ ? inputQ.value.trim() : "";    // searched term
 
-        // Choose endpoint: top headlines if no query, everything if query present
-        const url = query ? buildEverythingUrl() : buildTopHeadlinesUrl();
+        const inputC = document.getElementById("localString");
+        const localQuery = inputC ? inputC.value.trim() : "";   // searched countrycode
+
+        const url = query 
+            ? buildEverythingUrl(query)
+            : buildTopHeadlinesUrl(localQuery);
 
         const res = await fetch(url);
         if (!res.ok) throw new Error("Error: " + res.status);
         const data = await res.json();
 
-        // delegate rendering (renderArticles provided by render.js)
+        // throw it to rendererererer
         renderArticles(data.articles || []);
     } catch (err) {
         console.error(err);
@@ -26,12 +33,17 @@ async function handleSearch(e) {
     }
 }
 
-// Wire up form submit and initial load
+// wire up form submits and initial load
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("searchForm");
-    if (form) {
-        form.addEventListener("submit", handleSearch);
+    const searchForm = document.getElementById("searchForm");
+    if (searchForm) {
+        searchForm.addEventListener("submit", handleSearch);
     }
-    // Initial load: fetch top headlines if input empty, or run search if input has value
+
+    const localForm = document.getElementById("localForm");
+    if (localForm){
+        localForm.addEventListener("submit", handleSearch)
+    }
+    // initial load: fetch top headlines if input empty, or run search if input has value
     handleSearch();
 });
